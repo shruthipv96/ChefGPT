@@ -110,7 +110,7 @@ def chat():
 
                 # Check if there is a valid list of recipes matching user requirement
                 if len(recipes) == 0:
-                    conversation_bot.append({'bot':"Sorry, we do not have recipes that match your requirements. Please end this conversation."})
+                    conversation_bot.append({'bot':"Sorry, I do not have recipes that match your requirements. Please end this conversation."})
                 else:
                     # Provide a random food recipe suggestion
                     suggestedRecipe, explained_recipes = get_random_recipe(recipes=recipes, explained_recipes=[])
@@ -157,7 +157,7 @@ def chat():
             suggestedRecipe, explained_recipes = get_random_recipe(recipes=recipes, explained_recipes=explained_recipes)
             if suggestedRecipe is None:
                 # If there is no recipe available, update the user with an apology note.
-                conversation_bot.append({'bot':"Sorry, we do not have recipes that match your requirements. Please end this conversation."})
+                conversation_bot.append({'bot':"Sorry, I do not have recipes that match your requirements. Please end this conversation."})
             else:
                 # If there is recipe available, append the bot response to appropriate global variables
                 conversation_bot.append({'bot':suggestedRecipe})

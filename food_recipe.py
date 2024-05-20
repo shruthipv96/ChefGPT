@@ -28,8 +28,8 @@ def filterBasedOnPrepAndCookTime(userPrepTime, userCookTime, recipePrepTime, rec
         if(cookRatio < prepRatio):
             return True
     if (userPrepTime == 'more' and userCookTime == 'more'):
-        if(recipeTotalTime > 30):
-            return True
+        # Since user has lot of time, any recipe should be fine
+        return True
     if (userPrepTime == 'less' and userCookTime == 'less'):
         if(recipeTotalTime <= 30):
             return True
@@ -59,8 +59,8 @@ def get_food_recipes(recipe_requirement):
             validRecipe['CookTimeInMins'] = recipe['CookTimeInMins']
             validRecipe['Instructions'] = recipe['Instructions'].replace(u'\\xa0', u'')
             validRecipe['URL'] = recipe['URL']
-            validRecipe['RecipeServings'] = recipe['Servings']
-            validRecipe['UserServings'] = recipe_requirement['Servings']
+            validRecipe['RecipeServings'] = int(recipe['Servings'])
+            validRecipe['UserServings'] = int(recipe_requirement['Servings'])
             recipes.append(validRecipe)
     return recipes
 
@@ -90,9 +90,11 @@ def generate_recipe_report(recipe):
         report+= f"<li>{step.strip()+'.'}</li>"
     report+= '<br>'
     if recipe['RecipeServings'] > recipe['UserServings']:
-        report += f"<strong>Servings:</strong> <br> Instructions are for {recipe['RecipeServings']} people. Remember to scale down ingredients accordingly."
+        report += f"<strong>Servings:</strong> <br> Instructions are for {recipe['RecipeServings']} people. \
+            Remember to scale down ingredients accordingly for {recipe['UserServings']} people."
     elif recipe['RecipeServings'] < recipe['UserServings']:
-        report += f"<strong>Servings:</strong> <br> Instructions are for {recipe['RecipeServings']} people. Remember to scale up ingredients accordingly."
+        report += f"<strong>Servings:</strong> <br> Instructions are for {recipe['RecipeServings']} people. \
+            Remember to scale up ingredients accordingly for {recipe['UserServings']} people."
     else:
         report += f"<strong>Servings:</strong> <br> Servings will be for {recipe['UserServings']} "
     report += f'<br><br>For more details, you can refer at <a href="{recipe['URL']}" target="_blank">{recipe['URL'] }</a>'
