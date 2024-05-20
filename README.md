@@ -1,7 +1,5 @@
 # Chef GPT
 ---
-## Case study assignment by IIIT Bangalore and Upgrad
----
 > A chatbot that can understand user preferences for food recipes and provide suggestions from a pre-existing dataset.
 ---
 
