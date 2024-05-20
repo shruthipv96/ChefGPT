@@ -1,0 +1,48 @@
+<html> 
+    <head>
+        <title>
+            ChefGPT
+        </title>
+        <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+        <link rel="icon" type="image/x-icon" href="/static/images/ChefIcon.ico">
+    </head>
+    <body> 
+        <div class="outercontainer">
+            <div class="center">
+                <h1 id="titlestyle">
+                    ChefGPT
+                </h1>
+            </div>
+            <div class="conversationcontainer" id="chatcontainer">
+                {% for entry in content %}
+                <div class="{% if entry.bot %}bot{% else %}user{% endif %}">
+                    {% if entry.bot %}
+                    {{ entry.bot|safe}}
+                    {% else %}
+                    {{ entry.user|safe}}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <form action = "/chat" method="POST" class="center">
+                <input type ="text" name="user_input_message" id = "inputtextbox">
+                <input type="submit" value=" " id="submitbutton">
+            </form>
+
+            <form action="/end_conv" method="POST" class="center">
+                <button type="submit">END CONVERSATION</button>
+            </form>
+    </div>
+
+    <script>
+        // Scroll to the bottom of the chat container on page load and after a new message is sent
+        function scrollToBottom() {
+            var chatContainer = document.getElementById('chatcontainer');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        window.onload = scrollToBottom;
+    </script>
+
+</body> 
+</html>
